@@ -1,0 +1,63 @@
+<!-- Combined Hero & About Section -->
+<header id="about" class="hero-about-section">
+  <!-- Navigation Bar -->
+  <nav class="navbar" [class.scrolled]="isScrolled">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <h3>Bruce Tidball</h3>
+      </div>
+      <ul class="nav-menu" [class.active]="isMenuOpen">
+        <li class="nav-item">
+          <a href="#about" class="nav-link" (click)="scrollToSection('about')">About</a>
+        </li>
+        <li class="nav-item">
+          <a href="#experience" class="nav-link" (click)="scrollToSection('experience')">Experience</a>
+        </li>
+        <li class="nav-item">
+          <a href="#contact" class="nav-link" (click)="scrollToSection('contact')">Contact</a>
+        </li>
+      </ul>
+      <div class="hamburger" (click)="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-about-grid">
+        <!-- Left side - Hero text and intro -->
+        <div class="hero-text">
+          <h1>Construction & Project Management Expert</h1>
+          <p class="hero-subtitle">
+            With over 25 years of experience in construction and project management, 
+            I bring a wealth of knowledge and expertise to every project. My approach 
+            combines strategic thinking with hands-on experience to deliver exceptional results.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn-primary" (click)="scrollToSection('contact')">
+              Get In Touch
+            </button>
+            <button class="btn-secondary" (click)="scrollToSection('experience')">
+              View Experience
+            </button>
+          </div>
+        </div>
+
+        <!-- Right side - Professional photo -->
+        <div class="hero-image">
+          <div class="image-placeholder">
+            <div class="placeholder-content">
+              <i class="material-icons">person</i>
+              <p>Professional Photo</p>
+              <small>Replace with actual photo</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
