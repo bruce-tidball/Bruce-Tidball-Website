@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: write  # ✅ allows the workflow to push to gh-pages
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -27,11 +27,16 @@ jobs:
       - name: Build
         run: npm run build
       
+      - name: Remove README from build output
+        run: rm -f ./dist/bruce-tidball-website/README.md
+
+      - name: Disable Jekyll
+        run: touch ./dist/bruce-tidball-website/.nojekyll  # ✅ prevents Jekyll errors
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/bruce-tidball-website
-          publish_branch: main  # ✅ deploy to main branch instead of gh-pages
-          destination_dir: docs # ✅ (new) deploy into the /docs folder on main
-
+          publish_branch: main
+          destination_dir: docs
