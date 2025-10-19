@@ -27,10 +27,10 @@ jobs:
       # If your site is pre-built (e.g., HTML, JS, CSS only), skip the build step.
       # Otherwise, add your build commands here.
       # Example for React/Vite:
-      # - name: Install and build
-      #   run: |
-      #     npm install
-      #     npm run build
+      - name: Install and build
+        run: |
+          npm install
+          npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
