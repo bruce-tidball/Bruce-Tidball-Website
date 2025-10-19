@@ -3,7 +3,7 @@ name: Deploy static site to GitHub Pages
 on:
   push:
     branches:
-      - main  # 👈 when you push to main, it triggers deployment
+      - main
 
 permissions:
   contents: read
@@ -24,13 +24,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # If your site is pre-built (e.g., HTML, JS, CSS only), skip the build step.
-      # Otherwise, add your build commands here.
-      # Example for React/Vite:
-      - name: Install and build
-        run: |
-          npm install
-          npm run build
+      # If you have a build step, add it here
+      # Example:
+      # - name: Install and build
+      #   run: |
+      #     npm install
+      #     npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -38,12 +37,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./  # 👈 If your site’s files are in root, leave as "./"
-          # Or use ./dist or ./build if using a bundler
+          path: ./  # 👈 or ./dist / ./build depending on your site files
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          branch: gh-pages  # 👈 deploy *to* gh-pages branch
-          folder: ./        # 👈 same folder you uploaded above
