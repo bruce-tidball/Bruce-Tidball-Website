@@ -1,42 +1,49 @@
-name: Deploy to GitHub Pages
+name: Deploy static site to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main  # 👈 when you push to main, it triggers deployment
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-        
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Build
-        run: npm run build
-      
-      - name: Remove README from build output
-        run: rm -f ./dist/bruce-tidball-website/README.md
 
-      - name: Disable Jekyll
-        run: touch ./dist/bruce-tidball-website/.nojekyll  # ✅ prevents Jekyll errors
+      # If your site is pre-built (e.g., HTML, JS, CSS only), skip the build step.
+      # Otherwise, add your build commands here.
+      # Example for React/Vite:
+      # - name: Install and build
+      #   run: |
+      #     npm install
+      #     npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./  # 👈 If your site’s files are in root, leave as "./"
+          # Or use ./dist or ./build if using a bundler
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        id: deployment
+        uses: actions/deploy-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/bruce-tidball-website
-          publish_branch: main
-          destination_dir: docs
+          branch: gh-pages  # 👈 deploy *to* gh-pages branch
+          folder: ./        # 👈 same folder you uploaded above
