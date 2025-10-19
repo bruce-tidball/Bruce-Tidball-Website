@@ -32,5 +32,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/bruce-tidball-website
-          publish_branch: gh-pages  # ✅ ensure this branch is used for deployment
+          publish_branch: main  # ✅ deploy to main branch instead of gh-pages
+          destination_dir: docs # ✅ (new) deploy into the /docs folder on main
 
